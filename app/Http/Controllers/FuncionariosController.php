@@ -3,46 +3,42 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-// use App\Departamentos;
-// use App\Funcionarios;
+use App\Departamentos;
+use App\Funcionarios;
 
 class FuncionariosController extends Controller
 {
-    // protected $departamentos;
-    // protected $funcionarios;
+    protected $departamentos;
+    protected $funcionarios;
 
-    // public function __construct(Departamentos $departamentos,Funcionarios $funcionarios){
-    //     $this->departamentos = $departamentos;
-    //     $this->funcionarios = $funcionarios;
-    // }
+    public function __construct(Departamentos $departamentos,Funcionarios $funcionarios){
+        $this->departamentos = $departamentos;
+        $this->funcionarios = $funcionarios;
+    }
 
     public function index()
     {
-        // $departamentos = $this->departamentos->all();
-        
-        // return view('cadastros.index');
+        $departamentos = $this->departamentos->all();
 
-
-        return view('cadastros.index');
+        return view('cadastros.index', compact('departamentos'));
     }
 
-    // public function cadFunc(Request $request)
-    // {
-    //     $this->validate($request,Funcionario::rules(),Funcionario::customMsgRules());
+    public function cadFuncionario(Request $request)
+    {
+        $this->validate($request,Funcionarios::rules(),Funcionarios::customMsgRules());
         
-    //     $novoFuncionario = $this->funcionario;
-    //     $novoFuncionario->nome = $request->nome;
-    //     $novoFuncionario->save();
+        $novoFuncionario = $this->funcionarios;
+        $novoFuncionario->name = $request->name;
+        $novoFuncionario->save();
         
-    //     foreach($request->departamentos as $departamento)
-    //     {
-    //         $novoFuncionario->departamentos()->attach($departamento);
-    //     }
+        foreach($request->departamentos as $departamentos)
+        {
+            $novoFuncionario->departamentos()->attach($departamentos);
+        }
         
-    //     return redirect()->back()->with([
-    //         'success'=>'Funcionario '.$request->nome.' criado com sucesso'
-    //     ]);
-
-    // }
+        return redirect()->back()->with([
+            'success'=>'Funcionario '.$request->name.' criado com sucesso'
+        ]);
+    }
 
 }

@@ -4,7 +4,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-// Route::post('funcionarios', 'FuncionariosController@cadFunc')->name('cad.func');
+Route::post('funcionarios', 'FuncionariosController@cadFuncionario')->name('cad.func');
 Route::get('funcionarios', 'FuncionariosController@index')->name('funcionarios');
 
 Route::post('departamentos', 'DepartamentosController@cadDepartamento')->name('cad.depart');
